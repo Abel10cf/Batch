@@ -19,7 +19,7 @@ public class CustomerController {
 
     @GetMapping("/launcher")
     public void disparador() throws Exception{
-        JobParameters jobParams = new JobParametersBuilder().addLong("Start-At8",System.currentTimeMillis())
+        JobParameters jobParams = new JobParametersBuilder().addLong("Start-At",System.currentTimeMillis())
                                                             .toJobParameters();
 
         jobLauncher.run(job, jobParams);

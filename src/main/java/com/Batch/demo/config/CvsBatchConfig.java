@@ -80,11 +80,11 @@ public class CvsBatchConfig {
         return repositoryWriter;
     }
 
-    //Create step
+    //Create step chunk
     @Bean
-    public Step step(){
+    public Step stepcChunk(){
         return new StepBuilder("Step-1", jobRepository)
-                .<Customer, Customer>chunk(10, transactionManager)
+                .<Customer, Customer>chunk(10, transactionManager)//En esta parte <> antes del chunk se pasa la entrada y salida del writer
                 .reader(customerReader())
                 //.processor(customerProcessor())
                 .writer(customerWriter())
@@ -95,7 +95,7 @@ public class CvsBatchConfig {
     @Bean
     public Job job(){
         return new JobBuilder("customers-job", jobRepository)
-                .flow(step())
+                .flow(stepcChunk())
                 .end()
                 .build();
     }
